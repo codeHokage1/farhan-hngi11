@@ -1,23 +1,23 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import dotenv from "dotenv";
 import serverless from "serverless-http";
-import { getLocationDetails, getTemperature } from "./helper_functions";
+import { getLocationDetails, getTemperature } from "./helper_functions.js";
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.get("/", (req: Request, res: Response) => {
+app.get("/", (req, res) => {
   res.send("HNGi11: Stage 1 Task - Farhan S.");
 });
 
-app.get("/api/hello", async (req: Request, res: Response) => {
+app.get("/api/hello", async (req, res) => {
   const name = req.query.visitor_name;
   const client_ip = req.ip || "";
 
   // Get the location
-  const response: any = await getLocationDetails(client_ip);
+  const response = await getLocationDetails(client_ip);
   if (response.error) {
     return res.status(500).json({
       message: response.message,
@@ -28,7 +28,7 @@ app.get("/api/hello", async (req: Request, res: Response) => {
 
   // Get the temperature of city
   const [lat, long] = loc.split(",");
-  const weatherResponse: any = await getTemperature(lat, long);
+  const weatherResponse = await getTemperature(lat, long);
   if (weatherResponse.error) {
     return res.status(500).json({
       message: weatherResponse.message,

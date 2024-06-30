@@ -2,17 +2,16 @@
   "name": "stage-1",
   "version": "1.0.0",
   "main": "dist/index.js",
+  "type": "module",
   "scripts": {
-    "build": "tsc",
-    "start": "node functions/api/index.js",
-    "dev": "nodemon src/index.ts"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@netlify/functions": "^2.8.0",
     "axios": "^1.7.2",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
@@ -21,10 +20,7 @@
     "serverless-http": "^3.2.0"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
     "@types/node": "^20.14.9",
-    "nodemon": "^3.1.4",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.5.2"
+    "nodemon": "^3.1.4"
   }
 }

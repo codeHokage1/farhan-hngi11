@@ -1,6 +1,6 @@
-import IPinfoWrapper, { IPinfo, AsnResponse } from "node-ipinfo";
 import axios from "axios";
 import dotenv from "dotenv";
+import {IPinfoWrapper} from "node-ipinfo";
 
 dotenv.config();
 
@@ -8,9 +8,9 @@ const token = process.env.IPINFO_TOKEN || "";
 
 const ipinfoWrapper = new IPinfoWrapper(token);
 
-export const getLocationDetails = async (ip: string) => {
+export const getLocationDetails = async (ip) => {
   try {
-    const locationDetails = await ipinfoWrapper.lookupIp("1.1.1.1");
+    const locationDetails = await ipinfoWrapper.lookupIp(ip);
     if (!locationDetails) {
       return {
         error: true,
@@ -19,12 +19,13 @@ export const getLocationDetails = async (ip: string) => {
       };
     }
 
+    console.log(locationDetails);
     return {
       error: false,
       message: "Success: Location details found",
       data: locationDetails,
     };
-  } catch (error: any) {
+  } catch (error) {
     return {
       error: true,
       message: error.message,
@@ -33,7 +34,7 @@ export const getLocationDetails = async (ip: string) => {
   }
 };
 
-export const getTemperature = async (lat: any, long: any) => {
+export const getTemperature = async (lat, long) => {
   try {
     const weatherResponse = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${process.env.OPENWEATHER_API_KEY}&units=metric`
@@ -53,7 +54,7 @@ export const getTemperature = async (lat: any, long: any) => {
       message: "Success: Weather details found",
       data: temperature,
     };
-  } catch (error: any) {
+  } catch (error) {
     return {
       error: true,
       message: error,
