@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
+import serverless from "serverless-http";
 import { getLocationDetails, getTemperature } from "./helper_functions";
 
 dotenv.config();
@@ -47,3 +48,5 @@ app.get("/api/hello", async (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
+
+export const handler = serverless(app);
